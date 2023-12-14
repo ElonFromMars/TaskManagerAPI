@@ -13,6 +13,11 @@ target/
 .springBeans
 .sts4-cache
 
+### Gradle ###
+# Exclude Folder List #
+.gradle/
+build/
+
 ### IntelliJ IDEA ###
 .idea
 *.iws
