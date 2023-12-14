@@ -15,8 +15,8 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public Optional<User> getUser(Long id) {
+    public Optional<User> getUser(int id) {
 
-        return Optional.of(userRepository.getReferenceById(id));
+        return Optional.of(userRepository.findById(id).orElse(new User()));
     }
 }

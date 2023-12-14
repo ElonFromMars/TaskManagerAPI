@@ -5,6 +5,7 @@ import com.petproject.taskmanagerapi.api.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Optional;
@@ -12,7 +13,7 @@ import java.util.Optional;
 @RestController
 public class UserController {
 
-    private UserService userService;
+    private final UserService userService;
 
     @Autowired
     public UserController(UserService userService){
@@ -20,10 +21,9 @@ public class UserController {
     }
 
     @CrossOrigin
-    @GetMapping("/user")
-    public User getUser(/*@RequestParam int id*/){
-        Optional<User> user = userService.getUser(0L);
+    @GetMapping("/user/{id}")
+    public User getUser(@PathVariable int id){
+        Optional<User> user = userService.getUser(id);
         return user.orElse(null);
-
     }
 }
