@@ -1,7 +1,7 @@
-package com.petproject.taskmanagerapi.api.controller;
+package com.petproject.taskmanagerapi.taskmanagment.controller;
 
-import com.petproject.taskmanagerapi.api.model.Task;
-import com.petproject.taskmanagerapi.api.service.TaskService;
+import com.petproject.taskmanagerapi.taskmanagment.model.Task;
+import com.petproject.taskmanagerapi.taskmanagment.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;

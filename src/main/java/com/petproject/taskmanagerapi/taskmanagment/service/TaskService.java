@@ -1,13 +1,10 @@
-package com.petproject.taskmanagerapi.api.service;
+package com.petproject.taskmanagerapi.taskmanagment.service;
 
-import com.petproject.taskmanagerapi.api.model.Task;
-import com.petproject.taskmanagerapi.api.model.User;
-import com.petproject.taskmanagerapi.api.repository.TaskRepository;
-import com.petproject.taskmanagerapi.api.repository.UserRepository;
+import com.petproject.taskmanagerapi.taskmanagment.model.Task;
+import com.petproject.taskmanagerapi.taskmanagment.repository.TaskRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class TaskService {

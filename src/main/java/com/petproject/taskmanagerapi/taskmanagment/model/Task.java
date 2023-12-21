@@ -1,4 +1,4 @@
-package com.petproject.taskmanagerapi.api.model;
+package com.petproject.taskmanagerapi.taskmanagment.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -9,11 +9,10 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Table( name = "USERS" )
-public class User {
-
+@Table( name = "TASKS" )
+public class Task {
     @Id
     private int id;
-    private String name;
-    private String email;
+    private String text;
+    private boolean done;
 }
