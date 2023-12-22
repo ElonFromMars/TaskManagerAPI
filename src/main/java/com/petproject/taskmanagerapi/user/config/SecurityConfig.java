@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.authentication.configuration.GlobalAuthenticationConfigurerAdapter;
@@ -76,25 +77,27 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
+            .cors(Customizer.withDefaults())
             .csrf(AbstractHttpConfigurer::disable)
             .formLogin(AbstractHttpConfigurer::disable)
             .httpBasic(AbstractHttpConfigurer::disable)
-            .authorizeHttpRequests(authz -> authz
-                    .requestMatchers("/",
-                            "/error",
-                            "/favicon.ico",
-                            "/**/*.png",
-                            "/**/*.gif",
-                            "/**/*.svg",
-                            "/**/*.jpg",
-                            "/**/*.html",
-                            "/**/*.css",
-                            "/**/*.js",
-                            "/auth/**",
-                            "/oauth/**")
-                    .authenticated()
-                    .anyRequest()
-                    .authenticated()
+            .authorizeHttpRequests(authz -> {
+                         authz.requestMatchers("/",
+                                "/error",
+                                "/favicon.ico",
+                                "/**/*.png",
+                                "/**/*.gif",
+                                "/**/*.svg",
+                                "/**/*.jpg",
+                                "/**/*.html",
+                                "/**/*.css",
+                                "/**/*.js",
+                                "/auth/**",
+                                "/tasks",//TODO remove
+                                "/oauth/**")
+                            .permitAll();
+                        authz.anyRequest().authenticated();
+                    }
             )
             .oauth2Login(oauthLogin -> oauthLogin
                 .authorizationEndpoint(authorizationEndpoint -> authorizationEndpoint
