@@ -75,8 +75,9 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
         URI clientRedirectUri = URI.create(uri);
 
         //TODO remove
-        List<String> authorizedRedirectUris = new ArrayList<>(){
-        };
+        List<String> authorizedRedirectUris = new ArrayList<String>(){};
+
+        authorizedRedirectUris.add("http://localhost:3000/oauth2/redirect");
 
         return authorizedRedirectUris
                 .stream()

@@ -76,7 +76,6 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-            .cors(AbstractHttpConfigurer::disable)
             .csrf(AbstractHttpConfigurer::disable)
             .formLogin(AbstractHttpConfigurer::disable)
             .httpBasic(AbstractHttpConfigurer::disable)
@@ -92,15 +91,18 @@ public class SecurityConfig {
                             "/**/*.css",
                             "/**/*.js",
                             "/auth/**",
-                            "/oauth2/**")
-                    .authenticated())
+                            "/oauth/**")
+                    .authenticated()
+                    .anyRequest()
+                    .authenticated()
+            )
             .oauth2Login(oauthLogin -> oauthLogin
                 .authorizationEndpoint(authorizationEndpoint -> authorizationEndpoint
-                        .baseUri("/oauth2/authorize")
+                        .baseUri("/oauth/authorize")
                         .authorizationRequestRepository(cookieAuthorizationRequestRepository())
                 )
                 .redirectionEndpoint(redirectionEndpoint -> redirectionEndpoint
-                        .baseUri("/oauth2/callback/*")
+                        .baseUri("/oauth/callback/*")
                 )
                 .userInfoEndpoint(userInfoEndpoint -> userInfoEndpoint
                         .userService(customOAuth2UserService)
