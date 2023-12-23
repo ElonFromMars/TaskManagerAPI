@@ -1,4 +1,4 @@
-package com.petproject.taskmanagerapi.user.config;
+package com.petproject.taskmanagerapi.infrastructure.config;
 
 import com.petproject.taskmanagerapi.user.oauth2.CustomOAuth2UserService;
 import com.petproject.taskmanagerapi.user.oauth2.HttpCookieOAuth2AuthorizationRequestRepository;
@@ -93,7 +93,8 @@ public class SecurityConfig {
                                 "/**/*.css",
                                 "/**/*.js",
                                 "/auth/**",
-                                "/tasks",//TODO remove
+                                "/workspaces/**",
+                                "/tables/**",
                                 "/oauth/**")
                             .permitAll();
                         authz.anyRequest().authenticated();

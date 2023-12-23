@@ -1,4 +1,4 @@
-package com.petproject.taskmanagerapi.user.config;
+package com.petproject.taskmanagerapi.infrastructure.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;

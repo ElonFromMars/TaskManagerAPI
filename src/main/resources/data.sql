@@ -1,4 +1,0 @@
-INSERT INTO USERS(NAME, EMAIL, EMAIL_VERIFIED, PASSWORD, PROVIDER, PROVIDER_ID) VALUES ('Ivan', 'ivan@gmail.com', true, 'test', 'google', 'test_id');
-
-INSERT INTO TASKS(ID, TEXT, DONE) VALUES (0, 'test task A', FALSE);
-INSERT INTO TASKS(ID, TEXT, DONE) VALUES (1, 'test task B', FALSE);

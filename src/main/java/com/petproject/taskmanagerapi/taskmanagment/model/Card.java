@@ -1,7 +1,6 @@
 package com.petproject.taskmanagerapi.taskmanagment.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,10 +8,13 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Table( name = "TASKS" )
-public class Task {
+@Table(name = "cards")
+public class Card {
     @Id
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String name;
+
     private String text;
-    private boolean done;
 }
