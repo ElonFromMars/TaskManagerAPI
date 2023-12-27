@@ -5,6 +5,7 @@ import com.petproject.taskmanagerapi.taskmanagment.repository.TableRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TableService {
@@ -13,7 +14,9 @@ public class TableService {
     public TableService(TableRepository tableRepository){
         this.tableRepository = tableRepository;
     }
-    public List<CardTable> findAll() {
-        return tableRepository.findAll();
+
+    public Optional<CardTable> createTable(){
+        //tableRepository.
+        return Optional.empty();
     }
 }

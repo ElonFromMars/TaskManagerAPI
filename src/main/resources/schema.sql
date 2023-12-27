@@ -1,8 +1,9 @@
 CREATE TABLE IF NOT EXISTS users(
       id bigint GENERATED ALWAYS AS IDENTITY,
-      name varchar(100) not null,
+      username varchar(100) not null,
       email varchar(100) not null,
       email_verified bool not null,
+      name varchar(100),
       password varchar(100),
       provider varchar(100),
       provider_id varchar(100),

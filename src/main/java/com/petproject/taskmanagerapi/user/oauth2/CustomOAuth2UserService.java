@@ -69,6 +69,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         user.setProviderId(oAuth2UserInfo.getId());
         user.setName(oAuth2UserInfo.getName());
         user.setEmail(oAuth2UserInfo.getEmail());
+        user.setUsername(TrimEmailToUserName(oAuth2UserInfo.getEmail()));
         return userRepository.save(user);
     }
 
@@ -76,5 +77,10 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         existingUser.setName(oAuth2UserInfo.getName());
         return userRepository.save(existingUser);
     }
-
+    
+    private String TrimEmailToUserName(String email){
+        int index = email.indexOf('@');
+        email = email.substring(0,index);
+        return email;
+    }
 }

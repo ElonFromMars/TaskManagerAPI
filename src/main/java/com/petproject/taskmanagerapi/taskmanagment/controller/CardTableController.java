@@ -5,11 +5,13 @@ import com.petproject.taskmanagerapi.taskmanagment.service.TableService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("/user/{username}")
 public class CardTableController {
     private final TableService tableService;
 
@@ -18,9 +20,10 @@ public class CardTableController {
         this.tableService = tableService;
     }
 
-    @CrossOrigin
+/*    @CrossOrigin
     @GetMapping("/tables")
-    List<CardTable> getAll() {
+    List<CardTable> createTable() {
+
         return tableService.findAll();
-    }
+    }*/
 }
