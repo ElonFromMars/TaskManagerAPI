@@ -49,4 +49,11 @@ public class WorkspaceDTOMapper {
                 .name(workspace.getName())
                 .build();
     }
+
+    public static CardTable mapToCardTable(CardTableDTO cardTableDTO) {
+        var cardTable = new CardTable();
+        cardTable.setName(cardTableDTO.getName());
+
+        return cardTable;
+    }
 }

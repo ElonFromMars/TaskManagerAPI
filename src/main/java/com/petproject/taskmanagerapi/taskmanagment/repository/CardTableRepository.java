@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface TableRepository extends JpaRepository<CardTable, Long> {
+public interface CardTableRepository extends JpaRepository<CardTable, Long> {
 }

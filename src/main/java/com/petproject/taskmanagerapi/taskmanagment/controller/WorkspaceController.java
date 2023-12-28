@@ -4,27 +4,25 @@ import com.petproject.taskmanagerapi.taskmanagment.dao.dto.WorkspaceDTO;
 import com.petproject.taskmanagerapi.taskmanagment.dao.mapper.WorkspaceDTOMapper;
 import com.petproject.taskmanagerapi.taskmanagment.model.Workspace;
 import com.petproject.taskmanagerapi.taskmanagment.service.WorkspaceService;
+import com.petproject.taskmanagerapi.user.model.User;
 import com.petproject.taskmanagerapi.user.security.UserPrincipal;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.petproject.taskmanagerapi.user.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
 @CrossOrigin
+@RequiredArgsConstructor
 @RequestMapping("/user/{username}")
 public class WorkspaceController {
     private final WorkspaceService workspaceService;
-
-    @Autowired
-    public WorkspaceController(WorkspaceService workspaceService){
-        this.workspaceService = workspaceService;
-    }
+    private final UserService userService;
 
     @GetMapping("/workspaces")
     ResponseEntity<List<WorkspaceDTO>> getAllWorkspaces(@PathVariable String username, UserPrincipal principal)
@@ -34,9 +32,15 @@ public class WorkspaceController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
 
-        var list = workspaceService.getAllWorkspaces(username).stream().map(WorkspaceDTOMapper::mapToWorkspaceDto).toList();
+        Optional<User> user = userService.findByUsername(username);
 
-        return ResponseEntity.ok(list);
+        if (user.isPresent()){
+            var list = workspaceService.getAllWorkspaces(user.get()).stream().map(WorkspaceDTOMapper::mapToWorkspaceDto).toList();
+
+            return ResponseEntity.ok(list);
+        }
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @PostMapping("/workspaces")
@@ -47,10 +51,15 @@ public class WorkspaceController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         */
-        Optional<Workspace> workspace = workspaceService.addWorkspace(WorkspaceDTOMapper.mapToWorkspace(workspaceDTO), username);
+        Optional<User> user = userService.findByUsername(username);
 
-        if(workspace.isPresent()){
-            return ResponseEntity.ok(WorkspaceDTOMapper.mapToWorkspaceDto(workspace.get()));
+        if (user.isPresent()){
+            Workspace workspace = WorkspaceDTOMapper.mapToWorkspace(workspaceDTO);
+            Optional<Workspace> resultWorkspace = workspaceService.addWorkspace(user.get(), workspace);
+
+            if (resultWorkspace.isPresent()){
+                return ResponseEntity.ok(WorkspaceDTOMapper.mapToWorkspaceDto(resultWorkspace.get()));
+            }
         }
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

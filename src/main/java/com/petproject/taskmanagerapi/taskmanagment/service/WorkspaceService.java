@@ -3,7 +3,7 @@ package com.petproject.taskmanagerapi.taskmanagment.service;
 import com.petproject.taskmanagerapi.taskmanagment.model.Workspace;
 import com.petproject.taskmanagerapi.taskmanagment.repository.WorkspaceRepository;
 import com.petproject.taskmanagerapi.user.model.User;
-import com.petproject.taskmanagerapi.user.repository.UserRepository;
+import com.petproject.taskmanagerapi.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,20 +15,19 @@ import java.util.Optional;
 public class WorkspaceService {
     private final WorkspaceRepository workspaceRepository;
 
-    private final UserRepository userRepository;
-
-    public List<Workspace> getAllWorkspaces(String username) {
-        return workspaceRepository.findAllByUserUsername(username);
+    public List<Workspace> getAllWorkspaces(User user) {
+        return workspaceRepository.findAllByUserUsername(user.getUsername());
     }
 
-    public Optional<Workspace> addWorkspace(Workspace workspace, String username) {
+    public Optional<Workspace> addWorkspace(User user, Workspace workspace) {
 
-        Optional<User> user = userRepository.findByUsername(username);
-        if (user.isPresent()){
-            workspace.setUser(user.get());
-            workspaceRepository.save(workspace);
-            return Optional.of(workspace);
-        }
-        return Optional.empty();
+        workspace.setUser(user);
+        workspaceRepository.save(workspace);
+
+        return Optional.of(workspace);
+    }
+
+    public Optional<Workspace> findById(Long id) {
+        return workspaceRepository.findById(id);
     }
 }
